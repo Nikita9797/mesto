@@ -1,0 +1,11 @@
+.profile__info-row {
+    display: flex;
+    column-gap: 18px;
+    width: 100%;
+}
+
+@media screen and (max-width: 767px) {
+    .profile__info-row {
+        position: relative;
+    }
+}

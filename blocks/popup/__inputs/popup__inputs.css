@@ -1,0 +1,5 @@
+.popup__inputs {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}

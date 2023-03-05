@@ -1,0 +1,12 @@
+.add-button__plus-icon {
+    margin: auto;
+    max-width: 22px;
+    max-height: 22px;
+}
+
+@media screen and (max-width: 540px) {
+    .add-button__plus-icon {
+        max-width: 16px;
+        max-height: 16px;
+    }
+}
