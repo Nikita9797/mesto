@@ -1,6 +1,7 @@
 .add-button {
     box-sizing: border-box;
     border: 2px solid #fff;
+    background: none;
     border-radius: 2px;
     width: 150px;
     height: 50px;

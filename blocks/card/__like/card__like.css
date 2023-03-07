@@ -1,4 +1,5 @@
 .card__like {
+    background: none;
     width: 22px;
     height: 19px;
     align-self: center;
@@ -8,6 +9,7 @@
     background-position: 50%;
     background-size: contain;
     background-repeat: no-repeat;
+    border: none;
 }
 
 .card__like:hover {
