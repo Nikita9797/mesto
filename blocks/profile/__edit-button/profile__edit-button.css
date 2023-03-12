@@ -17,10 +17,6 @@
     opacity: 0.6;
 }
 
-.profile__edit-button:hover .profile__pen-icon {
-    opacity: 0.6;
-}
-
 @media screen and (max-width: 767px) {
     .profile__edit-button {
         width: 18px;

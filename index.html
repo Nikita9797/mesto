@@ -31,48 +31,16 @@
             </section>
             <section class="gallery">
                 <ul class="cards">
-                    <li class="card">
-                        <img src="images/karachaevsk.jpg" alt="Карачаевск" class="card__image">
-                        <div class="card__flex-row">
-                            <h2 class="card__text">Карачаевск</h2>
-                            <button class="card__like" type="button"></button>
-                        </div>
-                    </li>
-                    <li class="card">
-                        <img src="images/elbrus.jpg" alt="Эльбрус" class="card__image">
-                        <div class="card__flex-row">
-                            <h2 class="card__text">Гора Эльбрус</h2>
-                            <button class="card__like" type="button"></button>
-                        </div>
-                    </li>
-                    <li class="card">
-                        <img src="images/dombai.jpg" alt="Домбай" class="card__image">
-                        <div class="card__flex-row">
-                            <h2 class="card__text">Домбай</h2>
-                            <button class="card__like" type="button"></button>
-                        </div>
-                    </li>
-                    <li class="card">
-                        <img src="images/elbrus.jpg" alt="Эльбрус" class="card__image">
-                        <div class="card__flex-row">
-                            <h2 class="card__text">Гора Эльбрус</h2>
-                            <button class="card__like" type="button"></button>
-                        </div>
-                    </li>
-                    <li class="card">
-                        <img src="images/dombai.jpg" alt="Домбай" class="card__image">
-                        <div class="card__flex-row">
-                            <h2 class="card__text">Домбай</h2>
-                            <button class="card__like" type="button"></button>
-                        </div>
-                    </li>
-                    <li class="card">
-                        <img src="images/karachaevsk.jpg" alt="Карачаевск" class="card__image">
-                        <div class="card__flex-row">
-                            <h2 class="card__text">Карачаево-Черкессия</h2>
-                            <button class="card__like" type="button"></button>
-                        </div>
-                    </li>
+                    <template id="card-template">
+                        <li class="card">
+                            <img src="images/karachaevsk.jpg" alt="" class="card__image">
+                            <img src="images/trash.svg" alt="" class="card__trash">
+                            <div class="card__flex-row">
+                                <h2 class="card__text">Карачаевск</h2>
+                                <button class="card__like" type="button"></button>
+                            </div>
+                        </li>
+                    </template>
                 </ul>
             </section>
         </main>
@@ -80,7 +48,7 @@
             <p class="footer__copyright">© 2020 Mesto Russia</p>
         </footer>
     </div>
-    <div class="popup">
+    <div class="popup popup_el_profile-edit">
         <div class="popup__container">
             <h2 class="popup__text">Редактировать профиль</h2>
             <form class="popup__inputs" name="user-info-form">
@@ -93,5 +61,28 @@
             </button>
         </div>
     </div>
+    <div class="popup popup_el_add-card">
+        <div class="popup__container">
+            <h2 class="popup__text">Новое место</h2>
+            <form class="popup__inputs" name="create-card-form">
+                <input type="text" class="popup__input-text popup__input-text_el_title" placeholder="Название">
+                <input type="text" class="popup__input-text popup__input-text_el_url" placeholder="Ссылка на картинку">
+                <button type="submit" class="popup__button">Сохранить</button>
+            </form>
+            <button class="popup__close-button" type="button">
+                <img class="popup__close-icon" src="images/close-icon.svg" alt="Иконка для закрытия попапа">
+            </button>
+        </div>
+    </div>
+    <div class="popup-card">
+        <div class="popup-card__content">
+            <img class="popup-card__image" src="" alt="">
+            <h2 class="popup-card__text"></h2>
+            <button class="popup-card__close-button" type="button">
+                <img class="popup-card__icon" src="images/close-icon.svg" alt="Иконка для закрытия попапа">
+            </button>
+        </div>
+    </div>
+    </template>
 </body>
 </html>

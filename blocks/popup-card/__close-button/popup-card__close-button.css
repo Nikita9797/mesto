@@ -1,0 +1,26 @@
+.popup-card__close-button {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: none;
+    position: absolute;
+    top: -40px;
+    right: -40px;
+    max-width: 32px;
+    max-height: 32px;
+    cursor: pointer;
+    transition: opacity 350ms ease-in-out;
+}
+
+.popup-card__close-button:hover {
+    opacity: 0.6;
+}
+
+@media screen and (max-width: 540px) {
+    .popup-card__close-button {
+        top: -36px;
+        right: 0;
+        max-width: 20px;
+        max-height: 20px;
+    }
+}

@@ -2,6 +2,11 @@
     max-width: 10px;
     max-height: 10px;
     margin: auto;
+    transition: opacity 350ms ease-in-out;
+}
+
+.profile__edit-button:hover .profile__pen-icon {
+    opacity: 0.6;
 }
 
 @media screen and (max-width: 540px) {

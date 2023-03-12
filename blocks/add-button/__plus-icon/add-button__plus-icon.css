@@ -2,6 +2,11 @@
     margin: auto;
     max-width: 22px;
     max-height: 22px;
+    transition: opacity 350ms ease-in-out;
+}
+
+.add-button:hover .add-button__plus-icon {
+    opacity: 0.6;
 }
 
 @media screen and (max-width: 540px) {
