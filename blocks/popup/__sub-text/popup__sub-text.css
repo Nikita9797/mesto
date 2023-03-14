@@ -1,4 +1,5 @@
-.popup-card__text {
+.popup__sub-text {
+    margin: 10px 0 0;
     color: #fff;
     font-size: 12px;
     line-height: 1.1;
