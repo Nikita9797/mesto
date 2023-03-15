@@ -14,8 +14,9 @@ const inputCardTitleElement = popupAddCardElement.querySelector(".popup__input-t
 const inputCardURLElement = popupAddCardElement.querySelector(".popup__input-text_el_url");
 const formCardElement = popupAddCardElement.querySelector(".popup__inputs");
 const cardAddButtonElement = document.querySelector(".add-button");
-const popupImageElement = document.querySelector(".popup_el_popup-image");
-const cardIcon = popupImageElement.querySelector(".popup__close-icon");
+const popupImageOverlayElement = document.querySelector(".popup_el_popup-image");
+const popupImageElement = popupImageOverlayElement.querySelector(".popup__image");
+const cardIcon = popupImageOverlayElement.querySelector(".popup__close-icon");
 
 
 
@@ -48,19 +49,19 @@ function createNewCard(url, title) {
   const trashButton = cardElement.querySelector(".card__trash");
   const cardImage = cardElement.querySelector(".card__image");
 
-  cardElement.querySelector(".card__image").src = url;
-  cardElement.querySelector(".card__image").alt = title;
+  cardImage.src = url;
+  cardImage.alt = title;
   cardElement.querySelector(".card__text").textContent = title;
 
   trashButton.addEventListener("click", deleteCard);
   cardImage.addEventListener("click", createImagePopup);
   likeButton.addEventListener("click", toggleLikeStatus);
   cardImage.addEventListener("click", evt => createImagePopup(evt, url, title));
-  cardImage.addEventListener("click", () => openPopup(popupImageElement));
+  cardImage.addEventListener("click", () => openPopup(popupImageOverlayElement));
   return cardElement;
 }
 
-function addNewCard(evt) {
+function handleAddNewCard(evt) {
   evt.preventDefault();
   cardsElement.prepend(createNewCard(inputCardURLElement.value, inputCardTitleElement.value));
   closePopup(popupAddCardElement);
@@ -79,9 +80,9 @@ function deleteCard(evt) {
 }
 
 function createImagePopup(evt, url, title) {
-  popupImageElement.querySelector(".popup__image").src = url;
-  popupImageElement.querySelector(".popup__image").alt = title;
-  popupImageElement.querySelector(".popup__sub-text").textContent = title;
+  popupImageElement.src = url;
+  popupImageElement.alt = title;
+  popupImageOverlayElement.querySelector(".popup__sub-text").textContent = title;
 }
 
 
@@ -92,6 +93,6 @@ formProfileElement.addEventListener("submit", saveProfileEdit);
 
 cardAddButtonElement.addEventListener("click", () => openPopup(popupAddCardElement));
 popupAddCardCloseButtonElement.addEventListener("click", () => closePopup(popupAddCardElement));
-formCardElement.addEventListener("submit", addNewCard);
+formCardElement.addEventListener("submit", handleAddNewCard);
 
-cardIcon.addEventListener("click", () => closePopup(popupImageElement));
+cardIcon.addEventListener("click", () => closePopup(popupImageOverlayElement));
