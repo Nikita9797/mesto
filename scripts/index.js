@@ -9,6 +9,7 @@ const userStatus = document.querySelector(".profile__status");
 const cardsElement = document.querySelector(".cards");
 
 const popupAddCardElement = document.querySelector(".popup_el_add-card");
+const popupAddCardButtonElement = popupAddCardElement.querySelector(".popup__button");
 const popupAddCardCloseButtonElement = popupAddCardElement.querySelector(".popup__close-button");
 const inputCardTitleElement = popupAddCardElement.querySelector(".popup__input-text_el_title");
 const inputCardURLElement = popupAddCardElement.querySelector(".popup__input-text_el_url");
@@ -16,18 +17,33 @@ const formCardElement = popupAddCardElement.querySelector(".popup__inputs");
 const cardAddButtonElement = document.querySelector(".add-button");
 const popupImageOverlayElement = document.querySelector(".popup_el_popup-image");
 const popupImageElement = popupImageOverlayElement.querySelector(".popup__image");
+const popupImageText = popupImageOverlayElement.querySelector(".popup__sub-text");
 const cardIcon = popupImageOverlayElement.querySelector(".popup__close-icon");
-
 
 
 initialCards.forEach(item => cardsElement.prepend(createNewCard(item.link, item.name)));
 
+
 function openPopup(popup) {
     popup.classList.add("popup_opened");
+    popup.addEventListener("click", evt => closePopupByClickOnOverlay(evt, popup));
+    document.addEventListener("keydown", evt => closePopupByPressOnEsc(evt, popup));
 }
 
 function closePopup(popup) {
     popup.classList.remove("popup_opened");
+}
+
+function closePopupByClickOnOverlay(evt, popup) {
+    if (evt.target === evt.currentTarget) {
+      closePopup(popup);
+    }
+}
+
+function closePopupByPressOnEsc(evt, popup) {
+  if (evt.keyCode == "27") {
+    closePopup(popup);
+  }
 }
 
 function setInputsValuesProfilePopup() {
@@ -64,6 +80,7 @@ function createNewCard(url, title) {
 function handleAddNewCard(evt) {
   evt.preventDefault();
   cardsElement.prepend(createNewCard(inputCardURLElement.value, inputCardTitleElement.value));
+  disableButton(popupAddCardButtonElement, validationConfig);
   closePopup(popupAddCardElement);
 
   inputCardURLElement.value = "";
@@ -82,7 +99,7 @@ function deleteCard(evt) {
 function createImagePopup(evt, url, title) {
   popupImageElement.src = url;
   popupImageElement.alt = title;
-  popupImageOverlayElement.querySelector(".popup__sub-text").textContent = title;
+  popupImageText.textContent = title;
 }
 
 

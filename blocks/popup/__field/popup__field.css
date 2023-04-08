@@ -1,0 +1,7 @@
+.popup__field {
+    position: relative;
+}
+
+.popup__field:first-child {
+    padding-bottom: 30px;
+}
