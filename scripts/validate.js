@@ -30,30 +30,22 @@ function setEventListeners(form, {inputSelector, submitButtonSelector, ...rest})
 function checkInputValidity(input, rest) {
   const currentInputErrorContainer = document.querySelector(`.${input.id}-error`);
   if (input.validity.valid) {
-    setValidInputClass(input, rest)
-    hideErrorMessage(currentInputErrorContainer, rest);
+    hideErrorMessage(input, currentInputErrorContainer, rest);
   } else {
-    setInvalidInputClass(input, rest)
     showErrorMessage(input, currentInputErrorContainer, rest);
   }
 }
 
-function showErrorMessage(input, span, {errorClass}) {
+function showErrorMessage(input, span, {errorClass, inputErrorClass}) {
   span.classList.add(errorClass);
   span.textContent = input.validationMessage;
+  input.classList.add(inputErrorClass);
 }
 
-function hideErrorMessage(span, {errorClass}) {
+function hideErrorMessage(input, span, {errorClass, inputErrorClass}) {
   span.classList.remove(errorClass);
   span.textContent = "";
-}
-
-function setValidInputClass(input, {inputErrorClass}) {
   input.classList.remove(inputErrorClass);
-}
-
-function setInvalidInputClass(input, {inputErrorClass}) {
-  input.classList.add(inputErrorClass);
 }
 
 function hasInvalidInput(formInputs) {

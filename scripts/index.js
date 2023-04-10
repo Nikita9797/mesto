@@ -26,12 +26,12 @@ initialCards.forEach(item => cardsElement.prepend(createNewCard(item.link, item.
 
 function openPopup(popup) {
     popup.classList.add("popup_opened");
-    popup.addEventListener("click", evt => closePopupByClickOnOverlay(evt, popup));
-    document.addEventListener("keydown", evt => closePopupByPressOnEsc(evt, popup));
+    document.addEventListener("keydown", closePopupByPressOnEsc);
 }
 
 function closePopup(popup) {
     popup.classList.remove("popup_opened");
+    document.removeEventListener("keydown", closePopupByPressOnEsc);
 }
 
 function closePopupByClickOnOverlay(evt, popup) {
@@ -40,9 +40,10 @@ function closePopupByClickOnOverlay(evt, popup) {
     }
 }
 
-function closePopupByPressOnEsc(evt, popup) {
-  if (evt.keyCode == "27") {
-    closePopup(popup);
+function closePopupByPressOnEsc(evt) {
+  if (evt.key === "Escape") {
+    const openedPopup = document.querySelector(".popup_opened");
+    closePopup(openedPopup); 
   }
 }
 
@@ -106,10 +107,13 @@ function createImagePopup(evt, url, title) {
 buttonEditProfile.addEventListener("click", () => openPopup(popupProfileEditElement));
 buttonEditProfile.addEventListener("click", setInputsValuesProfilePopup);
 popupProfileCloseButtonElement.addEventListener("click", () => closePopup(popupProfileEditElement));
+popupProfileEditElement.addEventListener("click", evt => closePopupByClickOnOverlay(evt, popupProfileEditElement));
 formProfileElement.addEventListener("submit", saveProfileEdit);
 
 cardAddButtonElement.addEventListener("click", () => openPopup(popupAddCardElement));
 popupAddCardCloseButtonElement.addEventListener("click", () => closePopup(popupAddCardElement));
+popupAddCardElement.addEventListener("click", evt => closePopupByClickOnOverlay(evt, popupAddCardElement));
 formCardElement.addEventListener("submit", handleAddNewCard);
 
 cardIcon.addEventListener("click", () => closePopup(popupImageOverlayElement));
+popupImageOverlayElement.addEventListener("click", evt => closePopupByClickOnOverlay(evt, popupImageOverlayElement));
