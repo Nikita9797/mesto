@@ -1,3 +1,6 @@
+import {initialCards, Card} from "./Card.js";
+import {validationConfig, FormValidator} from "./FormValidator.js";
+
 const popupProfileEditElement = document.querySelector(".popup_el_profile-edit");
 const popupProfileCloseButtonElement = popupProfileEditElement.querySelector(".popup__close-button");
 const inputUserNameElement = popupProfileEditElement.querySelector(".popup__input-text_el_name");
@@ -15,13 +18,13 @@ const inputCardTitleElement = popupAddCardElement.querySelector(".popup__input-t
 const inputCardURLElement = popupAddCardElement.querySelector(".popup__input-text_el_url");
 const formCardElement = popupAddCardElement.querySelector(".popup__inputs");
 const cardAddButtonElement = document.querySelector(".add-button");
-const popupImageOverlayElement = document.querySelector(".popup_el_popup-image");
-const popupImageElement = popupImageOverlayElement.querySelector(".popup__image");
-const popupImageText = popupImageOverlayElement.querySelector(".popup__sub-text");
-const cardIcon = popupImageOverlayElement.querySelector(".popup__close-icon");
 
 
-initialCards.forEach(item => cardsElement.prepend(createNewCard(item.link, item.name)));
+initialCards.forEach(item => {
+  const card = new Card(item, "#card-template");
+  const cardElement = card.generateCard();
+  cardsElement.prepend(cardElement);
+});
 
 
 function openPopup(popup) {
@@ -59,61 +62,28 @@ function saveProfileEdit(evt) {
     closePopup(popupProfileEditElement);
 }
 
-function createNewCard(url, title) {
-  const cardTemplate = document.querySelector("#card-template").content;
-  const cardElement = cardTemplate.querySelector(".card").cloneNode(true);
-  const likeButton = cardElement.querySelector(".card__like");
-  const trashButton = cardElement.querySelector(".card__trash");
-  const cardImage = cardElement.querySelector(".card__image");
-
-  cardImage.src = url;
-  cardImage.alt = title;
-  cardElement.querySelector(".card__text").textContent = title;
-
-  trashButton.addEventListener("click", deleteCard);
-  cardImage.addEventListener("click", createImagePopup);
-  likeButton.addEventListener("click", toggleLikeStatus);
-  cardImage.addEventListener("click", evt => createImagePopup(evt, url, title));
-  cardImage.addEventListener("click", () => openPopup(popupImageOverlayElement));
-  return cardElement;
-}
-
 function handleAddNewCard(evt) {
   evt.preventDefault();
-  cardsElement.prepend(createNewCard(inputCardURLElement.value, inputCardTitleElement.value));
-  disableButton(popupAddCardButtonElement, validationConfig);
+  const newCard = new Card({name: inputCardTitleElement.value, link: inputCardURLElement.value}, "#card-template");
+  cardsElement.prepend(newCard.generateCard());
+  popupAddCardButtonElement.classList.add(validationConfig.inactiveButtonClass);
+  popupAddCardButtonElement.setAttribute("disabled", true);
   closePopup(popupAddCardElement);
 
   inputCardURLElement.value = "";
   inputCardTitleElement.value = "";
 }
 
-function toggleLikeStatus(evt) {
-  evt.target.classList.toggle("card__like_active");
-}
-
-function deleteCard(evt) {
-  const currentCard = evt.target.closest(".card");
-  currentCard.remove();
-}
-
-function createImagePopup(evt, url, title) {
-  popupImageElement.src = url;
-  popupImageElement.alt = title;
-  popupImageText.textContent = title;
-}
-
 
 buttonEditProfile.addEventListener("click", () => openPopup(popupProfileEditElement));
 buttonEditProfile.addEventListener("click", setInputsValuesProfilePopup);
+buttonEditProfile.addEventListener("click", () => new FormValidator(validationConfig, popupProfileEditElement).enableValidation());
 popupProfileCloseButtonElement.addEventListener("click", () => closePopup(popupProfileEditElement));
 popupProfileEditElement.addEventListener("click", evt => closePopupByClickOnOverlay(evt, popupProfileEditElement));
 formProfileElement.addEventListener("submit", saveProfileEdit);
 
 cardAddButtonElement.addEventListener("click", () => openPopup(popupAddCardElement));
+cardAddButtonElement.addEventListener("click", () => new FormValidator(validationConfig, popupAddCardElement).enableValidation());
 popupAddCardCloseButtonElement.addEventListener("click", () => closePopup(popupAddCardElement));
 popupAddCardElement.addEventListener("click", evt => closePopupByClickOnOverlay(evt, popupAddCardElement));
 formCardElement.addEventListener("submit", handleAddNewCard);
-
-cardIcon.addEventListener("click", () => closePopup(popupImageOverlayElement));
-popupImageOverlayElement.addEventListener("click", evt => closePopupByClickOnOverlay(evt, popupImageOverlayElement));
