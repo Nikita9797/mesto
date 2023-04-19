@@ -1,5 +1,7 @@
-import {initialCards, Card} from "./Card.js";
-import {validationConfig, FormValidator} from "./FormValidator.js";
+import {Card} from "./Card.js";
+import {initialCards} from "./cards.js";
+import {openPopup, closePopup, closePopupByClickOnOverlay} from "./utils.js";
+import {FormValidator} from "./FormValidator.js";
 
 const popupProfileEditElement = document.querySelector(".popup_el_profile-edit");
 const popupProfileCloseButtonElement = popupProfileEditElement.querySelector(".popup__close-button");
@@ -20,35 +22,24 @@ const formCardElement = popupAddCardElement.querySelector(".popup__inputs");
 const cardAddButtonElement = document.querySelector(".add-button");
 
 
+const validationConfig = {
+  formSelector: '.popup__inputs',
+  inputSelector: '.popup__input-text',
+  submitButtonSelector: '.popup__button',
+  inactiveButtonClass: 'popup__button_inactive',
+  inputErrorClass: 'popup__input-text_type_error',
+  errorClass: 'popup__input-text-error_visible'
+}
+
 initialCards.forEach(item => {
-  const card = new Card(item, "#card-template");
-  const cardElement = card.generateCard();
-  cardsElement.prepend(cardElement);
+  cardsElement.prepend(createCard(item, "#card-template"));
 });
 
-
-function openPopup(popup) {
-    popup.classList.add("popup_opened");
-    document.addEventListener("keydown", closePopupByPressOnEsc);
+function createCard(data, templateSelector) {
+  const card = new Card(data, templateSelector);
+  return card.generateCard();
 }
 
-function closePopup(popup) {
-    popup.classList.remove("popup_opened");
-    document.removeEventListener("keydown", closePopupByPressOnEsc);
-}
-
-function closePopupByClickOnOverlay(evt, popup) {
-    if (evt.target === evt.currentTarget) {
-      closePopup(popup);
-    }
-}
-
-function closePopupByPressOnEsc(evt) {
-  if (evt.key === "Escape") {
-    const openedPopup = document.querySelector(".popup_opened");
-    closePopup(openedPopup); 
-  }
-}
 
 function setInputsValuesProfilePopup() {
     inputUserNameElement.value = userName.textContent;
@@ -64,26 +55,38 @@ function saveProfileEdit(evt) {
 
 function handleAddNewCard(evt) {
   evt.preventDefault();
-  const newCard = new Card({name: inputCardTitleElement.value, link: inputCardURLElement.value}, "#card-template");
-  cardsElement.prepend(newCard.generateCard());
-  popupAddCardButtonElement.classList.add(validationConfig.inactiveButtonClass);
-  popupAddCardButtonElement.setAttribute("disabled", true);
+  cardsElement.prepend(createCard({name: inputCardTitleElement.value, link: inputCardURLElement.value}, "#card-template"));
+  formCardAddValidation.disableButton();
   closePopup(popupAddCardElement);
-
-  inputCardURLElement.value = "";
-  inputCardTitleElement.value = "";
+  evt.target.reset()
 }
 
 
-buttonEditProfile.addEventListener("click", () => openPopup(popupProfileEditElement));
-buttonEditProfile.addEventListener("click", setInputsValuesProfilePopup);
-buttonEditProfile.addEventListener("click", () => new FormValidator(validationConfig, popupProfileEditElement).enableValidation());
+const formProfileValidation = new FormValidator(validationConfig, popupProfileEditElement);
+formProfileValidation.enableValidation()
+
+function handleOpenPopupProfile() {
+    setInputsValuesProfilePopup()
+    formProfileValidation.resetValidation();
+    openPopup(popupProfileEditElement)
+}
+
+const formCardAddValidation = new FormValidator(validationConfig, popupAddCardElement);
+formCardAddValidation.enableValidation()
+
+function handleOpencardAddPopup() {
+    openPopup(popupAddCardElement)
+}
+
+
+
+
+buttonEditProfile.addEventListener("click", handleOpenPopupProfile);
 popupProfileCloseButtonElement.addEventListener("click", () => closePopup(popupProfileEditElement));
 popupProfileEditElement.addEventListener("click", evt => closePopupByClickOnOverlay(evt, popupProfileEditElement));
 formProfileElement.addEventListener("submit", saveProfileEdit);
 
-cardAddButtonElement.addEventListener("click", () => openPopup(popupAddCardElement));
-cardAddButtonElement.addEventListener("click", () => new FormValidator(validationConfig, popupAddCardElement).enableValidation());
+cardAddButtonElement.addEventListener("click", handleOpencardAddPopup);
 popupAddCardCloseButtonElement.addEventListener("click", () => closePopup(popupAddCardElement));
 popupAddCardElement.addEventListener("click", evt => closePopupByClickOnOverlay(evt, popupAddCardElement));
 formCardElement.addEventListener("submit", handleAddNewCard);

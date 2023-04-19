@@ -1,32 +1,6 @@
-const initialCards = [
-    {
-      name: 'Архыз',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-    },
-    {
-      name: 'Челябинская область',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-    },
-    {
-      name: 'Иваново',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-    },
-    {
-      name: 'Камчатка',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-    },
-    {
-      name: 'Холмогорский район',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-    },
-    {
-      name: 'Байкал',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-    }
-];
+import {openPopup, closePopup, closePopupByClickOnOverlay} from "./utils.js";
 
-
-class Card {
+export class Card {
   constructor(data, templateSelector) {
     this._name = data.name;
     this._link = data.link;
@@ -50,15 +24,15 @@ class Card {
     });
 
     this._elementCardImage.addEventListener("click", () => {
-      this._openPopup(this._popupImage);
+      openPopup(this._popupImage);
     });
 
     this._cardIcon.addEventListener("click", () => {
-      this._closePopup(this._popupImage);
+      closePopup(this._popupImage);
     })
 
     this._popupImage.addEventListener("click", evt => {
-      this._closePopupByClickOnOverlay(evt);
+      closePopupByClickOnOverlay(evt, this._popupImage);
     })
 
     this._elementTrashButton.addEventListener("click", () => {
@@ -69,7 +43,6 @@ class Card {
       this._toggleLikeStatus();
     });
 
-    document.addEventListener("keydown", evt => this._closePopupByPressOnEsc(evt));
   }
 
   _deleteCard() {
@@ -85,26 +58,6 @@ class Card {
   _toggleLikeStatus() {
     this._elementLikeButton.classList.toggle("card__like_active");
   }
-
-  _openPopup(popup) {
-    popup.classList.add("popup_opened");
-}
-
-  _closePopup(popup) {
-    popup.classList.remove("popup_opened");
-}
-
-_closePopupByClickOnOverlay(evt) {
-  if (evt.target === evt.currentTarget) {
-    this._closePopup(this._popupImage);
-  }
-}
-
-_closePopupByPressOnEsc(evt) {
-  if (evt.key === "Escape") {
-    this._closePopup(this._popupImage);
-  }
-}
 
 
   generateCard() {
@@ -125,5 +78,3 @@ _closePopupByPressOnEsc(evt) {
     return this._element;
   }
 }
-
-export {initialCards, Card};
