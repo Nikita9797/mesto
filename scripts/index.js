@@ -14,12 +14,12 @@ const userStatus = document.querySelector(".profile__status");
 const cardsElement = document.querySelector(".cards");
 
 const popupAddCardElement = document.querySelector(".popup_el_add-card");
-const popupAddCardButtonElement = popupAddCardElement.querySelector(".popup__button");
 const popupAddCardCloseButtonElement = popupAddCardElement.querySelector(".popup__close-button");
 const inputCardTitleElement = popupAddCardElement.querySelector(".popup__input-text_el_title");
 const inputCardURLElement = popupAddCardElement.querySelector(".popup__input-text_el_url");
 const formCardElement = popupAddCardElement.querySelector(".popup__inputs");
 const cardAddButtonElement = document.querySelector(".add-button");
+const popupCardImage = document.querySelector(".popup_el_popup-image");
 
 
 const validationConfig = {
@@ -90,3 +90,6 @@ cardAddButtonElement.addEventListener("click", handleOpencardAddPopup);
 popupAddCardCloseButtonElement.addEventListener("click", () => closePopup(popupAddCardElement));
 popupAddCardElement.addEventListener("click", evt => closePopupByClickOnOverlay(evt, popupAddCardElement));
 formCardElement.addEventListener("submit", handleAddNewCard);
+
+popupCardImage.addEventListener("click", () => closePopup(popupCardImage));
+popupCardImage.addEventListener("click", evt => closePopupByClickOnOverlay(evt, popupCardImage));

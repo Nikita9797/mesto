@@ -27,14 +27,6 @@ export class Card {
       openPopup(this._popupImage);
     });
 
-    this._cardIcon.addEventListener("click", () => {
-      closePopup(this._popupImage);
-    })
-
-    this._popupImage.addEventListener("click", evt => {
-      closePopupByClickOnOverlay(evt, this._popupImage);
-    })
-
     this._elementTrashButton.addEventListener("click", () => {
       this._deleteCard();
     });
