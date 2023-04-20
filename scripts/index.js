@@ -20,6 +20,7 @@ const inputCardURLElement = popupAddCardElement.querySelector(".popup__input-tex
 const formCardElement = popupAddCardElement.querySelector(".popup__inputs");
 const cardAddButtonElement = document.querySelector(".add-button");
 const popupCardImage = document.querySelector(".popup_el_popup-image");
+const popupCardImageCloseButton = popupCardImage.querySelector(".popup__close-button");
 
 
 const validationConfig = {
@@ -91,5 +92,5 @@ popupAddCardCloseButtonElement.addEventListener("click", () => closePopup(popupA
 popupAddCardElement.addEventListener("click", evt => closePopupByClickOnOverlay(evt, popupAddCardElement));
 formCardElement.addEventListener("submit", handleAddNewCard);
 
-popupCardImage.addEventListener("click", () => closePopup(popupCardImage));
+popupCardImageCloseButton.addEventListener("click", () => closePopup(popupCardImage));
 popupCardImage.addEventListener("click", evt => closePopupByClickOnOverlay(evt, popupCardImage));
