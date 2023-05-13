@@ -1,10 +1,9 @@
-import {openPopup, closePopup, closePopupByClickOnOverlay} from "./utils.js";
-
 export class Card {
-  constructor(data, templateSelector) {
+  constructor(data, templateSelector, handleFunc) {
     this._name = data.name;
     this._link = data.link;
     this._templateSelector = templateSelector;
+    this.handleCardClick = handleFunc;
   }
 
   _getTemplate() {
@@ -18,13 +17,8 @@ export class Card {
   }
 
   _setEventListeners() {
-    
     this._elementCardImage.addEventListener("click", () => {
-      this._createImagePopup();
-    });
-
-    this._elementCardImage.addEventListener("click", () => {
-      openPopup(this._popupImage);
+      this.handleCardClick();
     });
 
     this._elementTrashButton.addEventListener("click", () => {
