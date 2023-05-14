@@ -1,5 +1,6 @@
 .content {
     padding: 0 0 67px;
+    min-height: 60vh;
 }
 
 @media screen and (max-width: 540px) {

@@ -8,7 +8,7 @@
     top: 0;
     left: 0;
     background: rgba(0, 0, 0, 0.5);
-    transition: opacity 0.5s ease-in-out;
+    transition: all 0.5s ease-in-out;
 }
 
 @media screen and (max-width: 540px) {
