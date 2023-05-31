@@ -3,5 +3,9 @@
 }
 
 .popup__field:first-child {
-    padding-bottom: 30px;
+    padding: 0 0 37px;
+}
+
+.popup__field:nth-child(2) {
+    padding-bottom: 38px;
 }

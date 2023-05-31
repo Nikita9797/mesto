@@ -2,7 +2,6 @@
     border: none;
     width: 100%;
     background: #000;
-    margin-top: 48px;
     color: #fff;
     padding: 14px 0 18px;
     text-align: center;
@@ -20,7 +19,6 @@
 
 @media screen and (max-width: 540px) {
     .popup__button {
-        margin-top: 45px;
         padding: 14px 0;
         font-size: 14px;
     }

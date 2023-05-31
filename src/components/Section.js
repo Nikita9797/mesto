@@ -9,9 +9,13 @@ export class Section {
     addItem(element) {
       this._container.prepend(element);
     }
+
+    isCurrentUserOwner(currentUserId, ownerId) {
+      return currentUserId === ownerId;
+    }
   
     renderItems() {
-      this._renderedItems.forEach((item) => {
+      this._renderedItems.reverse().forEach((item) => {
         this._renderer(item);
       });
     }

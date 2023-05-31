@@ -13,15 +13,17 @@
         </header>
         <main class="content">
             <section class="profile content__profile">
-                <img src="<%=require('./images/kusto.jpg')%>" alt="Фото пользователя" class="profile__image">
+                <div class="profile__overlay">
+                    <img src="" alt="Фото пользователя" class="profile__image">
+                </div>
                 <div class="profile__info">
                     <div class="profile__info-row">
-                        <h1 class="profile__name">Жак-Ив Кусто</h1>
+                        <h1 class="profile__name"></h1>
                         <button class="profile__edit-button" type="button">
                             <img class="profile__pen-icon" src="<%=require('./images/pen.svg')%>" alt="Иконка редактирования">
                         </button>
                     </div>
-                    <p class="profile__status">Исследователь океана</p>
+                    <p class="profile__status"></p>
                 </div>
                 <button class="add-button" type="button">
                     <img class="add-button__plus-icon" src="<%=require('./images/plus.svg')%>" alt="Иконка плюс">
@@ -82,13 +84,52 @@
             </button>
         </div>
     </div>
+    <div class="popup popup_el_popup-delete">
+        <div class="popup__container">
+            <h2 class="popup__text">Вы уверены?</h2>
+            <button type="button" class="popup__button">Да</button>
+            <button class="popup__close-button" type="button">
+                <img class="popup__close-icon" src="<%=require('./images/close-icon.svg')%>" alt="Иконка для закрытия попапа">
+            </button>
+        </div>
+    </div>
+    <div class="popup popup_el_set-avatar">
+        <div class="popup__container">
+            <h2 class="popup__text">Обновить аватар</h2>
+            <form class="popup__inputs" name="create-card-form" novalidate>
+                <label class="popup__field">
+                    <input id="src-input" name="src" type="url" class="popup__input-text popup__input-text_el_src" placeholder="Ссылка на картинку" required>
+                    <span class="src-input-error popup__input-text-error"></span>
+                </label>
+                <button type="submit" disabled class="popup__button popup__button_inactive">Сохранить</button>
+            </form>
+            <button class="popup__close-button" type="button">
+                <img class="popup__close-icon" src="<%=require('./images/close-icon.svg')%>" alt="Иконка для закрытия попапа">
+            </button>
+        </div>
+    </div>
     <template id="card-template">
+        <li class="card">
+            <img src="<%=require('./images/karachaevsk.jpg')%>" alt="" class="card__image">
+            <div class="card__flex-row">
+                <h2 class="card__text">Карачаевск</h2>
+                <div class="card__like-flex">
+                    <button class="card__like" type="button"></button>
+                    <p class="card__like-counter"></p>
+                </div>
+            </div>
+        </li>
+    </template>
+    <template id="card-user-template">
         <li class="card">
             <img src="<%=require('./images/karachaevsk.jpg')%>" alt="" class="card__image">
             <img src="<%=require('./images/trash.svg')%>" alt="" class="card__trash">
             <div class="card__flex-row">
                 <h2 class="card__text">Карачаевск</h2>
-                <button class="card__like" type="button"></button>
+                <div class="card__like-flex">
+                    <button class="card__like" type="button"></button>
+                    <p class="card__like-counter"></p>
+                </div>
             </div>
         </li>
     </template>
